@@ -3,8 +3,6 @@ package phrase
 import (
 	"fmt"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestToCamel(t *testing.T) {
@@ -27,7 +25,10 @@ func TestToCamel(t *testing.T) {
 		tt := tt
 		t.Run(fmt.Sprintf("S=%s,Sep=%s", tt.s, tt.sep), func(t *testing.T) {
 			t.Parallel()
-			assert.Equal(t, tt.expected, ToCamel(tt.s, tt.sep))
+			got := ToCamel(tt.s, tt.sep)
+			if got != tt.expected {
+				t.Errorf("ToCamel(%s, %s) => %s, expected %s", tt.s, tt.sep, got, tt.expected)
+			}
 		})
 	}
 }
